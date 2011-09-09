@@ -25,10 +25,19 @@ class GFXEngine :
 		self.settsurf.loadFromFile ("gfx/protosettler.png")
 		self.settsurf.cols = 16
 		self.settsurf.rows = 16
-		self.sett = Sprite (self.viewspace, self.settsurf)
-		self.sett.x = 100
-		self.sett.y = 100
-		self.sett.configAnimation (True, 0, 24, 25)
+
+		self.sprites = []
+		
+	def create_settler(self, x, y):
+		""" Adds a settler to be drawn on the screen at position x, y and returns a reference to this settler. """
+
+		sprite = Sprite (self.viewspace, self.settsurf)
+		sprite.x = x
+		sprite.y = y
+		sprite.configAnimation (True, 0, 24, 25)
+		self.sprites.append(sprite)
+		return sprite
+
 	
 	def tick (self):
 	
@@ -39,7 +48,8 @@ class GFXEngine :
 	
 		self.display.clear ()
 		self.draw ()
-		self.sett.drawToDisplay (self.display)
+		for sprite in self.sprites:
+			sprite.drawToDisplay (self.display)
 		self.display.showFrame ()
 
 	def draw (self):

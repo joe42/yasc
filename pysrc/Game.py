@@ -19,7 +19,6 @@ class Game :
 	
 		self.lll = LowLevelLib ()
 		self.inputmanager = InputManager (self)
-		self.gamecontroller = GameController (self)
 		#self.display = Display ()
 		self.viewspace = ViewSpace ()
 		self.curmap = Map (40)
@@ -28,6 +27,7 @@ class Game :
 		self.curmap.heights.setHeight(2,5,1)
 		self.curmap.heights.setHeight(4,5,-1)
 		self.gfxengine = GFXEngine (self.lll, self.viewspace, self.curmap)
+		self.gamecontroller = GameController (self)
 		self.running = False
 		self.starttime = 0
 				
@@ -53,4 +53,10 @@ class Game :
 				print str(frames)+" fps"+(" - below 40 fps :-( !" if frames<40 else "")
 				frames = 0
 				lasttick = pygame.time.get_ticks ()
+
+	def get_gfxengine(self):
+		return self.gfxengine
+
+	def get_inputmanager(self):
+		return self.inputmanager
 
